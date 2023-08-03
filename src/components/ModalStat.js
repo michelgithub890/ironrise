@@ -1,9 +1,9 @@
 import React from 'react'
-import { Modal, View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { Modal, View, TouchableOpacity, Text, StyleSheet, ScrollView } from 'react-native'
 import { MODEL_COLORS } from '../models/modelColors'
 
-const ModalStat = ({ modalVisible, _handleClose }) => {
-
+const ModalStat = ({ modalVisible, _handleClose, statistics, titleExercise, _showDate }) => {
+ 
     return (
         <Modal
             animationType="slide"
@@ -13,7 +13,15 @@ const ModalStat = ({ modalVisible, _handleClose }) => {
             <View style={styles.container}> 
                 <View style={styles.viewBody}>
                     <View style={styles.contentView}>
-                        <Text style={styles.textInput}>Ajouter un exercice</Text>
+                        <Text style={styles.title}>{titleExercise}</Text>
+                        <ScrollView>
+                            {titleExercise && statistics.filter(statistic => statistic._id.exercise.toLowerCase() === titleExercise.toLowerCase()).map(statistic => (
+                                <View key={statistic._id.date}>
+                                    <Text style={{ marginTop:10, textAlign:"center" }}>{_showDate(statistic._id.date)}</Text>
+                                    <Text style={{ textAlign:"center"}}>{statistic.totalWeight}kg</Text>
+                                </View>
+                            ))}
+                        </ScrollView>
                     </View>
 
                     <View style={styles.viewButton}>
@@ -81,5 +89,12 @@ const styles = StyleSheet.create({
         marginTop:20,
         // color:"#808080",
         fontSize:20
-    }
+    },
+    title:{ 
+        fontSize:30,
+        color:MODEL_COLORS.main,
+        fontWeight:'bold',
+        marginBottom:20,
+        textAlign:'center',
+    },
 })

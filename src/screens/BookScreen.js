@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Button, FlatList, Dimensions, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Dimensions, ScrollView } from 'react-native'
+import { Button } from 'react-native-paper'
 import { MODEL_COLORS } from "../models/modelColors"
+// NAVIGATION  
+import { useIsFocused } from '@react-navigation/native'
 import useWorkout from '../hooks/useWorkout'
 const windowWidth = Dimensions.get('window').width
 import { format, parseISO } from 'date-fns'
@@ -9,18 +12,27 @@ import { fr } from 'date-fns/locale'
 const BookScreen = ({ navigation }) => {
     const { _getWorkout, workouts } = useWorkout()
     const [montage, setMontage] = useState(true)
+    const isFocused = useIsFocused()
 
     useEffect(() => {
         _getWorkout()
         setMontage(false)
     },[])
 
-    const myRender = () => {
+    useEffect(() => {
+        if (isFocused) {
+            _getWorkout()
+            setMontage(false)
+        }
+    }, [isFocused])
+    
+    const _myRender = () => {
         // Transform workouts to group sets by exercise
         const transformedWorkouts = workouts.map(workout => ({
             ...workout,
             exercises: workout.exercises.reduce((acc, exercise) => {
                 const existing = acc.find(ex => ex.name === exercise.name);
+                // console.log("bookscreen myrender ", existing)
                 if (existing) {
                 existing.sets.push({ reps: exercise.reps, weight: exercise.weight });
                 } else {
@@ -34,11 +46,11 @@ const BookScreen = ({ navigation }) => {
         }));
       
         return (
-            <View style={styles.viewCard}>
+            <View>
                 {transformedWorkouts.map((workout, i) => (
-                <View key={workout._id}>
+                <View style={styles.viewCard} key={workout._id}>
                     <Text style={styles.date}>
-                    {i === 0 && _showDate(workout.date)}
+                    {_showDate(workout.date)}
                     </Text>
                     {workout.exercises.map((exercise, j) => (
                     <View key={`${workout._id}_${exercise.name}_${j}`}>
@@ -54,10 +66,10 @@ const BookScreen = ({ navigation }) => {
                     ))}
                 </View>
                 ))}
+
             </View>
         )
     }
-      
 
     const _showDate = (date) => {
         const parsedDate = parseISO(date);
@@ -75,10 +87,11 @@ const BookScreen = ({ navigation }) => {
                 {/* TITLE PAGE */}
                 <Text style={styles.title}>Carnet</Text>
 
-                {workouts && myRender()}  
+                {workouts && _myRender()}   
+
+                <View style={{ height:20 }} />
 
             </ScrollView>
-
 
         </View>
     )
@@ -98,6 +111,7 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         marginTop:40,
         marginBottom:20,
+        textAlign:'center',
     },
     viewCard: {
         backgroundColor:"white", 
@@ -117,3 +131,12 @@ const styles = StyleSheet.create({
         justifyContent:"space-around",
     }
 })
+
+
+
+
+
+
+
+
+

@@ -84,7 +84,7 @@ const Tabs = () => {
                     )
                 }}
             />
-            <Tab.Screen 
+            {/* <Tab.Screen 
                 // name page
                 name="Calendar" 
                 // screen page
@@ -96,7 +96,7 @@ const Tabs = () => {
                         <Feather name="calendar" color={color} size={size} />
                     )
                 }}
-            />
+            /> */}
             <Tab.Screen 
                 // name page
                 name="Book" 

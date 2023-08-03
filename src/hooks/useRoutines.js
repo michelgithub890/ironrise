@@ -30,6 +30,7 @@ const useRoutines = () => {
             setRoutines(res.data)
             return res.data
         } catch (err) {
+            setRoutines()
             console.error(err);
         } 
     }

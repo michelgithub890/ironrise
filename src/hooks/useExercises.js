@@ -3,7 +3,7 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const useExercises = () => {
-    const [exercises, setExercises] = useState()
+    const [exercises, setExercises] = useState() 
     
     const _addExercise = async (title) => {
         const token = await AsyncStorage.getItem('@token')
@@ -31,6 +31,7 @@ const useExercises = () => {
             setExercises(res.data)
             return res.data
         } catch (err) {
+            setExercises()
             console.error("erreur get_exo => ",err)
         }
     }
@@ -45,7 +46,7 @@ const useExercises = () => {
         try {
             await axios.put(`http://192.168.1.22:4000/exercise/${id}`, {title, clientId}, config)
             _getExercises()
-        } catch (err) {
+        } catch (err) { 
             console.error("error => ", err);  
         }
     }

@@ -3,48 +3,52 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, Dimensions } from '
 import { MODEL_COLORS } from '../models/modelColors'
 import useExercises from '../hooks/useExercises'
 import ModalStat from '../components/ModalStat'
+import useStatistics from '../hooks/useStatistics'
+import { format } from 'date-fns'
+import { fr } from 'date-fns/locale'
 
 const { width } = Dimensions.get("window")
 
 const StatScreen = () => {
     const { _getExercises, exercises } = useExercises()
+    const { _getStatistics, statistics } = useStatistics()
     const [montage, setMontage] = useState(true)
     const [modalVisible, setModalVisible] = useState(false)
+    const [titleExercise, setTitleExercise] = useState()
 
     useEffect(() => {
         _getExercises()
+        _getStatistics()
         setMontage(false)
     },[])
-
-    useEffect(() => {
-        console.log('stats ', exercises)
-    },[exercises])
 
     if (montage) return <Text>data...</Text>
 
     const _renderExercices = ({ item }) => (
-        <TouchableOpacity onPress={() => _handleChoice(item._id)} style={styles.item}>
+        <TouchableOpacity onPress={() => [setTitleExercise(item.title), setModalVisible(true)]} style={styles.item}>
             <Text style={styles.text}>{item.title}</Text>
         </TouchableOpacity>
     )
-
-    const _handleChoice = (id) => {
-        console.log('stat _handleChoice ', id)
-        setModalVisible(true)
-    }
 
     const _handleClose = () => {
         setModalVisible(false)
     }
 
+    const _showDate = (date) => {
+        const parsedDate = new Date(date);
+        const formattedDate = format(parsedDate, "eeee dd MMMM yyyy", { locale: fr })
+        return formattedDate
+    }
+    
     return (
         <View style={styles.container}>
 
-            <Text>page stats</Text>
+            <Text style={styles.title}>Statistiques</Text>
 
             <View style={styles.list}>
                 <FlatList
                     data={exercises}
+                    style={{ marginBottom:30 }}
                     renderItem={_renderExercices}
                     keyExtractor={(item) => item._id}
                 />
@@ -53,6 +57,9 @@ const StatScreen = () => {
             <ModalStat
                 modalVisible={modalVisible}
                 _handleClose={_handleClose}
+                statistics={statistics}
+                titleExercise={titleExercise}
+                _showDate={_showDate}
             />
 
         </View>
@@ -83,6 +90,14 @@ const styles = StyleSheet.create({
     },
     list: {
         marginBottom:50, 
-        marginTop:10
-    }
+        marginTop:10,
+    },
+    title:{
+        fontSize:40,
+        color:MODEL_COLORS.main,
+        fontWeight:'bold',
+        marginTop:40,
+        marginBottom:20,
+        textAlign:'center',
+    },
 })

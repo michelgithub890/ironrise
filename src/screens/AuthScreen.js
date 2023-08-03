@@ -51,6 +51,7 @@ const AuthScreen = ({ navigation }) => {
     }
 
     const _handleSignIn = () => {
+        console.log("authScreen _handleSignIn", values.email, values.password)
         _signIn(values.email, values.password)
         Keyboard.dismiss()
         _refresh()

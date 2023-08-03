@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 // REACT NATIVE
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, FlatList } from 'react-native'
+// NAVIGATION  
+import { useIsFocused } from '@react-navigation/native'
 // APP CONTEXT 
 import AuthContext from '../components/AuthContext'
 // MODEL 
@@ -15,11 +17,22 @@ const windowWidth = Dimensions.get('window').width
 const HomeScreen = ({ navigation }) => {
     const { isUserLoggedIn } = useContext(AuthContext)
     const { _getRoutines, routines } = useRoutines()
+    const isFocused = useIsFocused()
     const { _addWorkout } = useWorkout()
 
     useEffect(() => {
+        console.log('HomeScreen useEffect', isUserLoggedIn)
         _getRoutines()
     },[])
+
+    useEffect(() => {
+        if (isFocused) {
+          // Votre logique ici
+          console.log('HomeScreen useEffect isFocused')
+          _getRoutines()
+        }
+      }, [isFocused])
+ 
  
     const _handleNavigate = (item,title) => {
         navigation.navigate('Home', { screen:'Workout', params: { idRoutine:item }})
@@ -48,7 +61,7 @@ const HomeScreen = ({ navigation }) => {
             <Text style={styles.mainTitle}>Iron App</Text>
 
             {/* NEXT SESSION CARD */}
-            <TouchableOpacity style={styles.viewCard} onPress={() => setModalVisible(true)}>
+            <TouchableOpacity style={styles.viewCard} /* onPress={() => setModalVisible(true)} */>
                 <Text style={styles.title}>NOUVELLE SÉANCE</Text>
                 <FlatList
                     data={routines}

@@ -18,7 +18,7 @@ const useMongoAuth = ( setUserLoggedIn, isUserLoggedIn ) => {
             });
     
             if (response.data.status === "ok") {
-                alert("login successful")
+                // alert("login successful")
                 try {
                     await AsyncStorage.setItem('@token', response.data.token)
                     await AsyncStorage.setItem('@email', email)
@@ -51,7 +51,7 @@ const useMongoAuth = ( setUserLoggedIn, isUserLoggedIn ) => {
             });
     
             if (response.data.status === "ok") {
-                alert("Registration successful")
+                // alert("Registration successful")
                 try {
                     await AsyncStorage.setItem('@token', response.data.token)
                     await AsyncStorage.setItem('@email', email)
@@ -77,7 +77,7 @@ const useMongoAuth = ( setUserLoggedIn, isUserLoggedIn ) => {
             await AsyncStorage.removeItem('@_id')
             await AsyncStorage.removeItem('@fname')
             await AsyncStorage.removeItem('@lname')
-            alert('logout')
+            // alert('logout')
         } catch(error) {
             console.error('Error:', error)
         }

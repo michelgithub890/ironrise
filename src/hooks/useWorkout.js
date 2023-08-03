@@ -32,6 +32,7 @@ const useWorkout = () => {
             setWorkouts(res.data)
             return res.data
         } catch (err) {
+            setWorkouts()
             console.error(err);
         } 
     }
