@@ -4,6 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const useStatistics = () => { 
     const [statistics, setStatistics] = useState()
+    let linkUrl = 'https://ironrise.herokuapp.com/'
+    // https://ironrise.herokuapp.com/
+    // http://192.168.1.22:4000/
 
     const _getStatistics = async () => {
         const token = await AsyncStorage.getItem('@token')
@@ -13,7 +16,7 @@ const useStatistics = () => {
             headers: { Authorization: `Bearer ${token}` }
         }
         try {
-            const res = await axios.get(`http://192.168.1.22:4000/statistics`, config);
+            const res = await axios.get(`${linkUrl}statistics`, config);
             // const res = await axios.get(`http://192.168.1.22:4000/workout?clientId=${id}`, config);
             setStatistics(res.data)
             return res.data

@@ -3,10 +3,13 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const useMongoAuth = ( setUserLoggedIn, isUserLoggedIn ) => {
+    let linkUrl = 'https://ironrise.herokuapp.com/'
+    // https://ironrise.herokuapp.com/
+    // http://192.168.1.22:4000/
 
     const _signIn = async (email, password) => {
         try {
-            const response = await axios.post("http://192.168.1.22:4000/auth/signin", {
+            const response = await axios.post(`${linkUrl}auth/signin`, {
                 email: email,
                 password: password
             }, {
@@ -37,7 +40,7 @@ const useMongoAuth = ( setUserLoggedIn, isUserLoggedIn ) => {
 
     const _signUp = async (fname, lname, email, password) => {
         try {
-            const response = await axios.post("http://192.168.1.22:4000/auth/signup", {
+            const response = await axios.post(`${linkUrl}auth/signup`, {
                 fname: fname,
                 lname: lname,
                 email: email,

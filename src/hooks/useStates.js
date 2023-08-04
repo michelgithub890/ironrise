@@ -4,6 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const useStates = () => {
     const [statistics, setStatistics] = useState()
+    let linkUrl = 'https://ironrise.herokuapp.com/'
+    // https://ironrise.herokuapp.com/
+    // http://192.168.1.22:4000/
 
     const _getStatistics = async () => {
         console.log('useStates _getStates ')

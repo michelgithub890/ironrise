@@ -4,6 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const useRoutines = () => {
     const [routines, setRoutines] = useState()
+    let linkUrl = 'https://ironrise.herokuapp.com/'
+    // https://ironrise.herokuapp.com/
+    // http://192.168.1.22:4000/
 
     const _addRoutine = async (name, exercises) => {
         const token = await AsyncStorage.getItem('@token')
@@ -12,7 +15,7 @@ const useRoutines = () => {
             headers: { Authorization: `Bearer ${token}` }
         }
         try {
-            const res = await axios.post('http://192.168.1.22:4000/routine', { name, id, exercises }, config)
+            const res = await axios.post(`${linkUrl}routine`, { name, id, exercises }, config)
             _getRoutines()
         } catch (err) {
             console.error("erreur => ",err);
@@ -26,7 +29,7 @@ const useRoutines = () => {
             headers: { Authorization: `Bearer ${token}` }
         }
         try {
-            const res = await axios.get(`http://192.168.1.22:4000/routine?clientId=${id}`, config);
+            const res = await axios.get(`${linkUrl}routine?clientId=${id}`, config);
             setRoutines(res.data)
             return res.data
         } catch (err) {
@@ -41,7 +44,7 @@ const useRoutines = () => {
             headers: { Authorization: `Bearer ${token}` }
         }
         try {
-            await axios.delete(`http://192.168.1.22:4000/routine/${id}`, config)
+            await axios.delete(`${linkUrl}routine/${id}`, config)
             _getRoutines()
         } catch (err) {
             console.error("error delete exercice => ",err);
@@ -57,3 +60,5 @@ const useRoutines = () => {
 }
 
 export default useRoutines
+
+// https://ironrise.herokuapp.com/

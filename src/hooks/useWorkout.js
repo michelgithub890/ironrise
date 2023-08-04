@@ -5,6 +5,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 const useWorkout = () => {
     const [workouts, setWorkouts] = useState()
     const [workoutToday, setWorkoutToday] = useState()
+    let linkUrl = 'https://ironrise.herokuapp.com/'
+    // https://ironrise.herokuapp.com/
+    // http://192.168.1.22:4000/
 
     const _addWorkout = async () => {
         const token = await AsyncStorage.getItem('@token')
@@ -13,7 +16,7 @@ const useWorkout = () => {
             headers: { Authorization: `Bearer ${token}` }
         }
         try {
-            const res = await axios.post('http://192.168.1.22:4000/workout', { clientId }, config)
+            const res = await axios.post('${linkUrl}workout', { clientId }, config)
             _getWorkout()
         } catch (err) {
             console.error("erreur => il y a déja un workout ",err);
@@ -27,7 +30,7 @@ const useWorkout = () => {
             headers: { Authorization: `Bearer ${token}` }
         }
         try {
-            const res = await axios.get(`http://192.168.1.22:4000/workout`, config);
+            const res = await axios.get(`${linkUrl}workout`, config);
             // const res = await axios.get(`http://192.168.1.22:4000/workout?clientId=${id}`, config);
             setWorkouts(res.data)
             return res.data
@@ -44,7 +47,7 @@ const useWorkout = () => {
             headers: { Authorization: `Bearer ${token}` }
         }
         try {
-            const res = await axios.get(`http://192.168.1.22:4000/workout/today?clientId=${id}`, config);
+            const res = await axios.get(`${linkUrl}workout/today?clientId=${id}`, config);
             setWorkoutToday(res.data)
             return res.data
         } catch (err) {
@@ -59,7 +62,7 @@ const useWorkout = () => {
             headers: { Authorization: `Bearer ${token}` }
         }
         try {
-            await axios.put(`http://192.168.1.22:4000/workout/${id}`, {exercise}, config)
+            await axios.put(`${linkUrl}workout/${id}`, {exercise}, config)
             _getWorkoutToday()
         } catch (err) {
             console.error("error => update work out", err);  
@@ -73,7 +76,7 @@ const useWorkout = () => {
             headers: { Authorization: `Bearer ${token}` }
         }
         try {
-            await axios.put(`http://192.168.1.22:4000/workout/${workoutId}/exercise/${exerciseId}`, { exerciseId, exercise, clientId }, config)
+            await axios.put(`${linkUrl}workout/${workoutId}/exercise/${exerciseId}`, { exerciseId, exercise, clientId }, config)
             _getWorkoutToday()
         } catch (err) {
             console.error("Error updating workout", err);  
@@ -87,7 +90,7 @@ const useWorkout = () => {
             headers: { Authorization: `Bearer ${token}` }
         }
         try {
-            await axios.delete(`http://192.168.1.22:4000/workout/${id}`, config)
+            await axios.delete(`${linkUrl}workout/${id}`, config)
             _getWorkout()
         } catch (err) {
             console.error("error delete exercice => ",err);

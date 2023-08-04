@@ -4,6 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const useExercises = () => {
     const [exercises, setExercises] = useState() 
+    let linkUrl = 'https://ironrise.herokuapp.com/'
+    // https://ironrise.herokuapp.com/
+    // http://192.168.1.22:4000/
     
     const _addExercise = async (title) => {
         const token = await AsyncStorage.getItem('@token')
@@ -27,7 +30,7 @@ const useExercises = () => {
             headers: { Authorization: `Bearer ${token}` }
         }
         try {
-            const res = await axios.get(`http://192.168.1.22:4000/exercise?clientId=${id}`, config)
+            const res = await axios.get(`${linkUrl}exercise?clientId=${id}`, config)
             setExercises(res.data)
             return res.data
         } catch (err) {
@@ -44,7 +47,7 @@ const useExercises = () => {
         }
         console.log('use_exo put ', title, clientId)
         try {
-            await axios.put(`http://192.168.1.22:4000/exercise/${id}`, {title, clientId}, config)
+            await axios.put(`${linkUrl}exercise/${id}`, {title, clientId}, config)
             _getExercises()
         } catch (err) { 
             console.error("error => ", err);  
@@ -57,7 +60,7 @@ const useExercises = () => {
             headers: { Authorization: `Bearer ${token}` }
         }
         try {
-            await axios.delete(`http://192.168.1.22:4000/exercise/${id}`, config)
+            await axios.delete(`${linkUrl}exercise/${id}`, config)
             _getExercises()
         } catch (err) {
             console.error("error => ", err)

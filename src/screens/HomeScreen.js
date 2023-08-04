@@ -13,6 +13,8 @@ import useWorkout from '../hooks/useWorkout'
 
 const windowWidth = Dimensions.get('window').width 
 
+// npx nodemon sever.js
+
 // PAGE HOME
 const HomeScreen = ({ navigation }) => {
     const { isUserLoggedIn } = useContext(AuthContext)
