@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 // REACT NATIVE  
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 // MODELS 
@@ -9,10 +9,13 @@ const AuthUserComponent = ({ onPress, fname, lname, email }) => {
     return (
         <View style={styles.container}>
 
+            {/* TITLE FIRST NAME - LAST NAME */}
             <Text style={styles.title}>{fname} {lname}</Text>
 
+            {/* TEXT EMAIL */}
             <Text style={styles.emailText}>{email}</Text>
 
+            {/* BUTTON LOG OUT */}
             <TouchableOpacity style={styles.button} onPress={onPress}>
                 <Text style={styles.buttonText}>SE DÉCONNECTER</Text>
             </TouchableOpacity>
@@ -23,6 +26,7 @@ const AuthUserComponent = ({ onPress, fname, lname, email }) => {
 
 export default AuthUserComponent
 
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     container: {
         backgroundColor:"white",

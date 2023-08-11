@@ -14,7 +14,7 @@ import AuthUserComponent from '../components/AuthUserComponent'
 import useMongoAuth from '../mongodb/useMongoAuth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-
+// VALUES => INPUTS 
 const INITIAL_STATE = {
     email:'',
     password:'',
@@ -23,18 +23,24 @@ const INITIAL_STATE = {
 }
 
 const AuthScreen = ({ navigation }) => {
+    // IS LOGGED
     const { isUserLoggedIn, setUserLoggedIn } = useContext(AuthContext)
-    const [isSignIn, setIsSignIn] = useState(true)
+    // FORM 
     const { _handleChange, values, _refresh } = useForm(INITIAL_STATE)
+    // FIREBASE 
     const { _signIn, _signUp, _signOut } = useMongoAuth(setUserLoggedIn, isUserLoggedIn)
+    // CONST  
+    const [isSignIn, setIsSignIn] = useState(true)
     const [lname, setLname] = useState()
     const [fname, setFname] = useState()
     const [email, setEmail] = useState()
 
+    // GET DATA 
     useEffect(() => {
         _getUserData()
     },[isUserLoggedIn])
 
+    // GET USER 
     const _getUserData = async () => {
         const ln = await AsyncStorage.getItem('@lname')
         const fn = await AsyncStorage.getItem('@fname')
@@ -44,12 +50,14 @@ const AuthScreen = ({ navigation }) => {
         setEmail(email)
     }
 
+    // SIGN UP 
     const _handleSignUp = () => {
         _signUp(values.fname, values.lname, values.email, values.password)
         Keyboard.dismiss()
         _refresh()
     }
 
+    // SIGN IN 
     const _handleSignIn = () => {
         console.log("authScreen _handleSignIn", values.email, values.password)
         _signIn(values.email, values.password)
@@ -57,14 +65,16 @@ const AuthScreen = ({ navigation }) => {
         _refresh()
     } 
 
+    // LOG OUT 
     const _logOut = () => {
         _signOut()
     }
 
+    // PASSWORD FORGET 
     const _resetPassword = () => {
         Alert.alert(
             "Iron App Version démo",
-            "Le mot de passe oublié n'est pas valide",
+            "L'email n'est pas valide",
             [
                 { text: "OK", onPress: () => console.log("OK Pressé") }
             ]
@@ -75,6 +85,7 @@ const AuthScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
 
+            {/* LOG OUT */}
             {isUserLoggedIn ? 
                 <AuthUserComponent 
                     onPress={_logOut}
@@ -85,6 +96,7 @@ const AuthScreen = ({ navigation }) => {
                 
             :
                 <>
+                    {/* SIGN IN / SIGN UP */}
                     {isSignIn ? 
                         <SignInComponents 
                             onPress={_handleSignIn} 
@@ -99,6 +111,8 @@ const AuthScreen = ({ navigation }) => {
                             _handleChange={_handleChange}
                         />
                     }
+
+                        {/* BUTTON CREATE ACCOUNT / CONNECT */}
                         <TouchableOpacity onPress={() => setIsSignIn(!isSignIn)}>
                             <Text style={styles.textColorGreen}>{isSignIn ? "CRÉER UN COMPTE" : "SE CONNECTER"}</Text>
                         </TouchableOpacity>
@@ -114,6 +128,7 @@ const AuthScreen = ({ navigation }) => {
 
 export default AuthScreen
 
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     container:{
         flex:1,

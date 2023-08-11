@@ -1,8 +1,10 @@
 import { useState } from 'react'
 
 const useForm = (initialState) => {
+    // VALUES 
     const [values, setValues] = useState(initialState)
 
+    // CHANGE VALUES 
     const _handleChange = (name, value) => { 
         // maintenir en memoire
         setValues(prevValues => ({ 
@@ -11,7 +13,7 @@ const useForm = (initialState) => {
         }))
     }
 
-    // remettre a zero
+    // remettre a zero // REFRESH 
     const _refresh = () => {
         setValues(initialState)
         // console.log('useForm refresh ',)
@@ -26,7 +28,13 @@ const useForm = (initialState) => {
         }))
     }
 
-    return { _handleChange, values, _refresh, setValues, _clearInput }
+    return { 
+        _handleChange, 
+        values, 
+        _refresh, 
+        setValues, 
+        _clearInput 
+    }
 }
 
 export default useForm

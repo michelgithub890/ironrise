@@ -9,25 +9,6 @@ const TestScreen = () => {
             <View style={{ height: height * 0.20, backgroundColor: 'red' }}>
                 {/* Your title and button here */}
                 <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
-                <Text>Titre</Text>
                 <Button title="Bouton" onPress={() => {}} />
             </View>
             <View style={{ height: height * 0.10, backgroundColor: 'white' }}>

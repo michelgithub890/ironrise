@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, TextInput, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-// MODEL  
+// REACT NATIVE 
+import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+// REACT NATIVE PAPER 
+import { TextInput } from 'react-native-paper'
+// MODEL   
 import { MODEL_COLORS } from '../models/modelColors'
 
 const ModalModifExo = ({ modalVisible, setModalVisible, _handleUpdateItem, exerciceTitle }) => {
+    // CONST 
     const [inputValue, setInputValue] = useState(exerciceTitle)
  
+    // GET EXERCISES 
     useEffect(() => {
         setInputValue(exerciceTitle)
     }, [exerciceTitle])
  
+    // ADD EXERCISE 
     const _handleClick = () => {
         if (inputValue && inputValue.trim() !== '') {
             _handleUpdateItem(inputValue)
@@ -20,6 +26,7 @@ const ModalModifExo = ({ modalVisible, setModalVisible, _handleUpdateItem, exerc
         }
     }
 
+    // HANDLE CANCEL 
     const _handleCancel = () => {
         setModalVisible(false)
         setInputValue()
@@ -35,6 +42,7 @@ const ModalModifExo = ({ modalVisible, setModalVisible, _handleUpdateItem, exerc
                 <View style={styles.viewBody}>
                     <View style={styles.contentView}>
                         <Text style={styles.textInput}>Modifier un exercice</Text>
+                        {/* INPUT ROUTINE */}
                         <TextInput 
                             value={inputValue} 
                             onChangeText={setInputValue} 
@@ -43,6 +51,7 @@ const ModalModifExo = ({ modalVisible, setModalVisible, _handleUpdateItem, exerc
                         />
                     </View>
 
+                    {/* BUTTON ADD / CANCEL */}
                     <View style={styles.viewButton}>
                         <TouchableOpacity style={styles.buttonAdd} onPress={_handleClick}>
                             <Text style={styles.textButton}>Modifier</Text>
@@ -59,6 +68,7 @@ const ModalModifExo = ({ modalVisible, setModalVisible, _handleUpdateItem, exerc
 
 export default ModalModifExo
 
+// STYLES DESIGN
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
@@ -100,11 +110,12 @@ const styles = StyleSheet.create({
         color:"white"
     },
     input: {
-        borderWidth:1,
-        borderColor:"#A9A9A9",
-        width:220,
-        paddingLeft:10,
-        marginTop:20
+        height: 40, 
+        marginTop:20, 
+        marginStart:20, 
+        marginEnd:20 , 
+        paddingStart:10,
+        backgroundColor:MODEL_COLORS.ultraLight,
     },
     textInput: {
         marginTop:20,

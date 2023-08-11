@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
-import { Modal, TextInput, View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native'
+// REACT NATIVE 
+import { Modal, View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native'
+// REACT NATIVE PAPER 
+import { TextInput } from 'react-native-paper'
 // MODEL  
 import { MODEL_COLORS } from '../models/modelColors'
 
+// SIZE SCREEN 
 const { height } = Dimensions.get('window')
 
 const ModalRoutine = ({ modalVisible, setModalVisible, _handleAddItemRoutine, exercises, renderExercises }) => {
+    // CONST 
     const [inputValue, setInputValue] = useState()
 
+    // ADD ROUTINE 
     const _handleClick = () => {
         if (inputValue && inputValue.trim() !== '') {
             _handleAddItemRoutine(inputValue)
@@ -18,6 +24,7 @@ const ModalRoutine = ({ modalVisible, setModalVisible, _handleAddItemRoutine, ex
         }
     }
  
+    // CLOSE MODAL 
     const _handleCancel = () => {
         setModalVisible(false)
         setInputValue()
@@ -32,6 +39,7 @@ const ModalRoutine = ({ modalVisible, setModalVisible, _handleAddItemRoutine, ex
             <View style={styles.container}>
                 <View style={styles.viewBody}>
                     <View style={styles.contentView}>
+                        {/* ADD ROUTINE */}
                         <Text style={styles.textInput}>Ajouter une routine</Text>
                         <TextInput 
                             value={inputValue} 
@@ -41,6 +49,7 @@ const ModalRoutine = ({ modalVisible, setModalVisible, _handleAddItemRoutine, ex
                         />
                     </View>
 
+                    {/* LIST EXERCISES */}
                     <View style={{ height: height * 0.5 }}>
                         <FlatList
                             data={exercises}
@@ -49,6 +58,7 @@ const ModalRoutine = ({ modalVisible, setModalVisible, _handleAddItemRoutine, ex
                         />
                     </View>
 
+                    {/* BUTTON ADD / CANCEL */}
                     <View style={styles.viewButton}>
                         <TouchableOpacity style={styles.buttonAdd} onPress={_handleClick}>
                             <Text style={styles.textButton}>Ajouter</Text>
@@ -65,6 +75,7 @@ const ModalRoutine = ({ modalVisible, setModalVisible, _handleAddItemRoutine, ex
 
 export default ModalRoutine
 
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
@@ -106,11 +117,12 @@ const styles = StyleSheet.create({
         color:"white"
     },
     input: {
-        borderWidth:1,
-        borderColor:"#A9A9A9",
-        width:220,
-        paddingLeft:10,
-        marginTop:20
+        height: 40, 
+        marginTop:20, 
+        marginStart:20, 
+        marginEnd:20 , 
+        paddingStart:10,
+        backgroundColor:MODEL_COLORS.ultraLight,
     },
     textInput: {
         marginTop:20,

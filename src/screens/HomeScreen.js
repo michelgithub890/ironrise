@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 // REACT NATIVE
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, FlatList } from 'react-native'
 // NAVIGATION  
@@ -7,48 +7,58 @@ import { useIsFocused } from '@react-navigation/native'
 import AuthContext from '../components/AuthContext'
 // MODEL 
 import { MODEL_COLORS } from '../models/modelColors'
+// HOOKS  
 import useRoutines from '../hooks/useRoutines'
 import useWorkout from '../hooks/useWorkout'
 
-
+// SIZE SCREEN 
 const windowWidth = Dimensions.get('window').width 
 
 // npx nodemon sever.js
 
 // PAGE HOME
 const HomeScreen = ({ navigation }) => {
+    // IS LOGGED 
     const { isUserLoggedIn } = useContext(AuthContext)
+    // USE ROUTINES 
     const { _getRoutines, routines } = useRoutines()
+    // IS FOCUS 
     const isFocused = useIsFocused()
+    // ADD WORKOUT 
     const { _addWorkout } = useWorkout()
 
+    // GET ROUTINES 
     useEffect(() => {
         console.log('HomeScreen useEffect', isUserLoggedIn)
         _getRoutines()
     },[])
 
+    // GET ROUTINES IS FOCUSED
     useEffect(() => {
         if (isFocused) {
-          // Votre logique ici
+          // Votre logique ici 
           console.log('HomeScreen useEffect isFocused')
           _getRoutines()
         }
       }, [isFocused])
  
- 
+    // NAVIGATE WORKOUT + CREATE WORKOUT 
     const _handleNavigate = (item,title) => {
         navigation.navigate('Home', { screen:'Workout', params: { idRoutine:item }})
         _createWorkout(title)
     }
 
+    // NAVIGATE STATS
     const _handleNavStat = () => {
         navigation.navigate('Home', { screen:'Stats' })
     }
  
+    // ADD WORKOUT 
     const _createWorkout = () => {
         _addWorkout()
     }
 
+    // ROUTINES => NAME 
     const renderRoutines = ({ item }) => (
         <TouchableOpacity onPress={() => _handleNavigate(item._id)} >
             <Text style={styles.item}>{item.name}</Text>
@@ -83,6 +93,7 @@ const HomeScreen = ({ navigation }) => {
 
 export default HomeScreen
 
+// STYLES DESIGN 
 // The StyleSheet.create method allows you to define styles in a dedicated place.
 const styles = StyleSheet.create({
     // Define the "container" style.

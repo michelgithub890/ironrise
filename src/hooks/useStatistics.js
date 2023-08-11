@@ -3,11 +3,13 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const useStatistics = () => { 
+    // CONST + LINK 
     const [statistics, setStatistics] = useState()
     let linkUrl = 'https://ironrise.herokuapp.com/'
     // https://ironrise.herokuapp.com/
     // http://192.168.1.22:4000/
 
+    // GET STATISTICS 
     const _getStatistics = async () => {
         const token = await AsyncStorage.getItem('@token')
         const id = await AsyncStorage.getItem('@_id')

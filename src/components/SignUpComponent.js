@@ -1,13 +1,18 @@
 import React from 'react'
 // REACT NATIVE  
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+// REACT NATIVE PAPER 
+import { TextInput } from 'react-native-paper'
 // MODEL  
 import { MODEL_COLORS } from '../models/modelColors'
 
 const SignUpComponent = ({ values, _handleChange, onPress }) => {
     return (
         <View style={styles.container}>
+
             <Text style={styles.title}>Créer un compte</Text>
+
+            {/* INPUT FIST NAME */}
             <Text style={styles.text}>Prénom</Text>
             <TextInput 
                 style={styles.input} 
@@ -15,6 +20,8 @@ const SignUpComponent = ({ values, _handleChange, onPress }) => {
                 onChangeText={(text) => _handleChange("fname", text)}
                 value={values.fname}
             />
+
+            {/* INPUT NAME */}
             <Text style={styles.text}>Nom</Text>
             <TextInput 
                 style={styles.input} 
@@ -22,6 +29,8 @@ const SignUpComponent = ({ values, _handleChange, onPress }) => {
                 onChangeText={(text) => _handleChange("lname", text)}
                 value={values.lname}
             />
+
+            {/* INPUT EMAIL */}
             <Text style={styles.text}>Email</Text>
             <TextInput 
                 style={styles.input}  
@@ -29,6 +38,8 @@ const SignUpComponent = ({ values, _handleChange, onPress }) => {
                 onChangeText={(text) => _handleChange("email", text)}
                 value={values.email}
             />
+
+            {/* PASSWORD */}
             <Text style={styles.text}>Mot de passe</Text>
             <TextInput 
                 style={styles.input} 
@@ -36,6 +47,8 @@ const SignUpComponent = ({ values, _handleChange, onPress }) => {
                 onChangeText={(text) => _handleChange("password", text)}
                 value={values.password}
             />
+
+            {/* BUTTON CREATE ACCOUNT */}
             <TouchableOpacity style={styles.button} onPress={onPress}>
                 <Text style={styles.buttonText}>CRÉER UN COMPTE</Text>
             </TouchableOpacity>
@@ -45,6 +58,7 @@ const SignUpComponent = ({ values, _handleChange, onPress }) => {
 
 export default SignUpComponent
 
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     container: {
         backgroundColor:"white",
@@ -58,11 +72,18 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         alignSelf:'center',
     },
-    input:{
-        borderWidth:1,
-        borderColor:"#A9A9A9",
-        width:220,
-        paddingLeft:10,
+    input: {
+        height: 40, 
+        marginTop:20, 
+        marginStart:20, 
+        marginEnd:20 , 
+        paddingStart:10,
+        backgroundColor:MODEL_COLORS.ultraLight,
+    },
+    textInput: {
+        marginTop:20,
+        // color:"#808080",
+        fontSize:20
     },
     text:{
         marginTop:20,

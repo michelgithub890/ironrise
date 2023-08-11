@@ -3,10 +3,12 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const useMongoAuth = ( setUserLoggedIn, isUserLoggedIn ) => {
+    // LINK HEROKU
     let linkUrl = 'https://ironrise.herokuapp.com/'
     // https://ironrise.herokuapp.com/
     // http://192.168.1.22:4000/
 
+    // SIGN IN
     const _signIn = async (email, password) => {
         try {
             const response = await axios.post(`${linkUrl}auth/signin`, {
@@ -38,6 +40,7 @@ const useMongoAuth = ( setUserLoggedIn, isUserLoggedIn ) => {
         }
     }
 
+    // SIGN UP 
     const _signUp = async (fname, lname, email, password) => {
         try {
             const response = await axios.post(`${linkUrl}auth/signup`, {
@@ -73,6 +76,7 @@ const useMongoAuth = ( setUserLoggedIn, isUserLoggedIn ) => {
         }
     }
 
+    // SIGN OUT 
     const _signOut = async () => {
         try {
             await AsyncStorage.removeItem('@token')

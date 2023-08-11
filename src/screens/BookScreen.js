@@ -1,24 +1,34 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList, Dimensions, ScrollView } from 'react-native'
-import { Button } from 'react-native-paper'
+// REACT NATIVE 
+import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native'
+// MODEL 
 import { MODEL_COLORS } from "../models/modelColors"
 // NAVIGATION  
 import { useIsFocused } from '@react-navigation/native'
+// WORKOUT 
 import useWorkout from '../hooks/useWorkout'
+// DIMENSION SCREEN
 const windowWidth = Dimensions.get('window').width
+// DATE 
 import { format, parseISO } from 'date-fns'
 import { fr } from 'date-fns/locale'
 
 const BookScreen = ({ navigation }) => {
-    const { _getWorkout, workouts } = useWorkout()
-    const [montage, setMontage] = useState(true)
-    const isFocused = useIsFocused()
 
+    // USE WORKOUT 
+    const { _getWorkout, workouts } = useWorkout()
+    // IS LOGGED
+    const isFocused = useIsFocused()
+    // CONST 
+    const [montage, setMontage] = useState(true)
+
+    // GET WORKOUT 
     useEffect(() => {
         _getWorkout()
         setMontage(false)
     },[])
 
+    // GET WORKOUT IS FOCUSED
     useEffect(() => {
         if (isFocused) {
             _getWorkout()
@@ -26,6 +36,7 @@ const BookScreen = ({ navigation }) => {
         }
     }, [isFocused])
     
+    // RETURN WORKOUT IN ARRAY => FILTER 
     const _myRender = () => {
         // Transform workouts to group sets by exercise
         const transformedWorkouts = workouts.map(workout => ({
@@ -87,6 +98,7 @@ const BookScreen = ({ navigation }) => {
                 {/* TITLE PAGE */}
                 <Text style={styles.title}>Carnet</Text>
 
+                {/* SHOW WORKOUT */}
                 {workouts && _myRender()}   
 
                 <View style={{ height:20 }} />
@@ -99,6 +111,7 @@ const BookScreen = ({ navigation }) => {
 
 export default BookScreen
 
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     container:{
         flex:1,

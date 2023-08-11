@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+// REACT NATIVE 
 import { View, Text, StyleSheet } from 'react-native'
+// MODEL 
 import { MODEL_COLORS } from "../models/modelColors"
+// CALENDAR 
 import { Calendar, LocaleConfig } from 'react-native-calendars'
+// HOOK WORK OUT 
 import useWorkout from '../hooks/useWorkout'
 
+// LOCAL DATE 
 LocaleConfig.locales['fr'] = {
     monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
     monthNamesShort: ['Janv.','Févr.','Mars','Avril','Mai','Juin','Juill.','Août','Sept.','Oct.','Nov.','Déc.'],
@@ -15,23 +20,27 @@ LocaleConfig.locales['fr'] = {
 
 
   const CalendarScreen = ({ navigation }) => {
-        const { _getWorkout, workouts } = useWorkout()
+    // USE WORKOUT 
+    const { _getWorkout, workouts } = useWorkout()
   
-        useEffect(() => {
-        _getWorkout()
-        },[])
+    // GET WORKOUT 
+    useEffect(() => {
+    _getWorkout()
+    },[])
     
-        const markedDates = workouts?.reduce((acc, workout) => {
-            const date = new Date(workout.date);
-            const key = date.toISOString().split('T')[0]; // 'YYYY-MM-DD'
-            acc[key] = { selected: true, marked: true, selectedColor:MODEL_COLORS.main };
-            return acc;
-        }, {}) || {};
+    // MARKED DATES 
+    const markedDates = workouts?.reduce((acc, workout) => {
+        const date = new Date(workout.date);
+        const key = date.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+        acc[key] = { selected: true, marked: true, selectedColor:MODEL_COLORS.main };
+        return acc;
+    }, {}) || {};
     
-        const onDayPress = (day) => {
-            const clickedDate = new Date(day.year, day.month - 1, day.day); // months are 0-indexed in JavaScript Date
-            const today = new Date();
-            today.setHours(0, 0, 0, 0); // set time to 00:00:00 to just compare dates
+    // DAY PRESSED 
+    const onDayPress = (day) => {
+        const clickedDate = new Date(day.year, day.month - 1, day.day); // months are 0-indexed in JavaScript Date
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // set time to 00:00:00 to just compare dates
     
         if (clickedDate >= today) {
             console.log('Clicked date: ' + clickedDate.toISOString().split('T')[0]);
@@ -59,7 +68,7 @@ LocaleConfig.locales['fr'] = {
 
 export default CalendarScreen
 
-
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     // Define the "container" style.
     container:{

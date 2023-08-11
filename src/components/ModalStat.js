@@ -1,5 +1,7 @@
 import React from 'react'
+// REACT NATIVE 
 import { Modal, View, TouchableOpacity, Text, StyleSheet, ScrollView } from 'react-native'
+// MODELS 
 import { MODEL_COLORS } from '../models/modelColors'
 
 const ModalStat = ({ modalVisible, _handleClose, statistics, titleExercise, _showDate }) => {
@@ -13,7 +15,9 @@ const ModalStat = ({ modalVisible, _handleClose, statistics, titleExercise, _sho
             <View style={styles.container}> 
                 <View style={styles.viewBody}>
                     <View style={styles.contentView}>
+                        {/* TITLE EXERCISE */}
                         <Text style={styles.title}>{titleExercise}</Text>
+                        {/* STATS */}
                         <ScrollView>
                             {titleExercise && statistics.filter(statistic => statistic._id.exercise.toLowerCase() === titleExercise.toLowerCase()).map(statistic => (
                                 <View key={statistic._id.date}>
@@ -24,6 +28,7 @@ const ModalStat = ({ modalVisible, _handleClose, statistics, titleExercise, _sho
                         </ScrollView>
                     </View>
 
+                    {/* BUTTON CLOSE MODAL */}
                     <View style={styles.viewButton}>
                         <TouchableOpacity style={styles.buttonCancel} onPress={_handleClose}>
                             <Text style={styles.textButton}>Fermer</Text>
@@ -37,6 +42,7 @@ const ModalStat = ({ modalVisible, _handleClose, statistics, titleExercise, _sho
 
 export default ModalStat
 
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     container: {
         flex: 1, 

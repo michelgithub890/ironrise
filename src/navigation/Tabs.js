@@ -9,7 +9,6 @@ import { MODEL_COLORS } from "../models/modelColors"
 // SCREENS
 import AuthScreen from "../screens/AuthScreen"
 import HomeScreen from '../screens/HomeScreen'
-import CalendarScreen from "../screens/CalendarScreen"
 import BookScreen from "../screens/BookScreen"
 import ExercicesScreen from "../screens/ExercicesScreen" 
 import ExoScreen from "../screens/ExoScreen"
@@ -25,6 +24,7 @@ import StatScreen from "../screens/StatScreen"
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
 
+// PAGE EXERCISE + ROUTINES 
 function ExercicesStack() {
     return (
       <Stack.Navigator>
@@ -39,21 +39,24 @@ function ExercicesStack() {
     );
 }
 
+
+// PAGE HOME WORKOUT WORKOUT EXERCISE SCREEN 
 function HomeStack() {
     return (
-      <Stack.Navigator>
-        <Stack.Screen 
-            name="home2" 
-            component={HomeScreen}
-            options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Workout" component={WorkoutScreen} options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  />
-        <Stack.Screen name="WorkoutExercise" component={WorkoutExerciseScreen} options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  />
-        <Stack.Screen name="Stats" component={StatScreen} options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  />
-      </Stack.Navigator>
+        <Stack.Navigator>
+            <Stack.Screen 
+                name="home2" 
+                component={HomeScreen}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Workout" component={WorkoutScreen} options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  />
+            <Stack.Screen name="WorkoutExercise" component={WorkoutExerciseScreen} options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  />
+            <Stack.Screen name="Stats" component={StatScreen} options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  />
+        </Stack.Navigator>
     );
 }
 
+// BOTTON TAB NAVIGATOR 
 const Tabs = () => {
     return (
         <Tab.Navigator

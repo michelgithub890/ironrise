@@ -1,23 +1,35 @@
 import React, { useEffect, useState } from 'react'
+// REACT NATIVE 
 import { View, TouchableOpacity, Text, FlatList, StyleSheet, Alert } from 'react-native'
+// NAVIGATION 
 import { useNavigation } from '@react-navigation/native'
+// MODAL 
 import ModalModifExo from '../components/ModalModifExo'
+// ICONS 
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+// MODEL 
 import { MODEL_COLORS } from '../models/modelColors'
+// HOOK EXERCISES 
 import useExercises from '../hooks/useExercises'
 
 const ExoScreen = (props) => {
+    // CONST ROUTE PARAM 
     const { idExo, exercises } = props.route.params 
+    // HOOK EXERCISES 
+    const { _deleteExercise, _updateExercise } = useExercises()
+    // NAVIAGATION 
+    const navigation = useNavigation()
+    // CONST 
     const [filteredExercises, setFilteredExercises] = useState([])
     const [modalVisible, setModalVisible] = useState(false)
-    const { _deleteExercise, _updateExercise } = useExercises()
-    const navigation = useNavigation()
 
+    // GET EXERCISES => FILTER EXO
     useEffect(() => {
         const filtered = exercises.filter(exercise => exercise._id === idExo)
         setFilteredExercises(filtered)
     },[])
 
+    // DELETE 
     const _handleDelete = () => {
         Alert.alert(
             // Titre
@@ -44,6 +56,7 @@ const ExoScreen = (props) => {
         )
     }
 
+    // UPDATE 
     const _handleUpdateItem = (updatedTitle) => {
         const idExo = filteredExercises[0]._id
         _updateExercise(idExo, updatedTitle)
@@ -51,6 +64,7 @@ const ExoScreen = (props) => {
         
     }
 
+    // RENDER ITEM 
     const renderItem = ({ item }) => (
         <View>
             <Text style={styles.title}>{item.title}</Text>
@@ -61,10 +75,13 @@ const ExoScreen = (props) => {
         <View style={styles.container}>
 
             <View style={styles.viewTitle}>
+
+                {/* ICON PENCIL */}
                 <TouchableOpacity onPress={() => setModalVisible(true)}>
                     <MaterialCommunityIcons name="grease-pencil" size={24} color={MODEL_COLORS.main} />
                 </TouchableOpacity>
 
+                {/* ICON PENCIL */}
                 <TouchableOpacity onPress={_handleDelete}>
                     <MaterialCommunityIcons name="trash-can" size={24} color={MODEL_COLORS.red} />
                 </TouchableOpacity>
@@ -72,6 +89,8 @@ const ExoScreen = (props) => {
             </View>
 
             <View>
+
+                {/* LIST EXERCISES */}
                 <FlatList
                     data={filteredExercises}
                     renderItem={renderItem}
@@ -83,6 +102,7 @@ const ExoScreen = (props) => {
                 <Text>Historique</Text>
             </View>
 
+            {/* MODAL */}
             <ModalModifExo 
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
@@ -96,6 +116,7 @@ const ExoScreen = (props) => {
 
 export default ExoScreen
 
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     container: {
         backgroundColor:MODEL_COLORS.light,

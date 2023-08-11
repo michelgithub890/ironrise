@@ -3,12 +3,14 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const useWorkout = () => {
+    // CONST 
     const [workouts, setWorkouts] = useState()
     const [workoutToday, setWorkoutToday] = useState()
     let linkUrl = 'https://ironrise.herokuapp.com/'
     // https://ironrise.herokuapp.com/
     // http://192.168.1.22:4000/
 
+    // ADD WORKOUT 
     const _addWorkout = async () => {
         const token = await AsyncStorage.getItem('@token')
         const clientId = await AsyncStorage.getItem('@_id')
@@ -23,6 +25,7 @@ const useWorkout = () => {
         }
     }
 
+    // GET WORKOUT 
     const _getWorkout = async () => {
         const token = await AsyncStorage.getItem('@token')
         const id = await AsyncStorage.getItem('@_id')
@@ -40,6 +43,7 @@ const useWorkout = () => {
         } 
     }
 
+    // GET WORKOUT TODAY 
     const _getWorkoutToday = async () => {
         const token = await AsyncStorage.getItem('@token')
         const id = await AsyncStorage.getItem('@_id')
@@ -55,6 +59,7 @@ const useWorkout = () => {
         } 
     }
 
+    // UPDATE WORKOUT 
     const _updateWorkout = async (exercise) => {
         const token = await AsyncStorage.getItem('@token')
         const id = await AsyncStorage.getItem('@_id')
@@ -69,6 +74,7 @@ const useWorkout = () => {
         }
     }
 
+    // UPDATE WORKOUT EXERCISE 
     const _updateWorkoutExercise = async (workoutId, exerciseId, exercise) => {
         const token = await AsyncStorage.getItem('@token')
         const clientId = await AsyncStorage.getItem('@_id')
@@ -84,6 +90,7 @@ const useWorkout = () => {
     }
 
 
+    // DELETE WORKOUT 
     const _deleteWorkout = async (id) => { 
         const token = await AsyncStorage.getItem('@token')
         const config = {

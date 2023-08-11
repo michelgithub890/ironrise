@@ -1,46 +1,61 @@
 import React, { useState, useEffect } from 'react'
+// REACT NATIVE 
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Alert } from 'react-native'
+// MODELS 
 import { MODEL_COLORS } from "../models/modelColors"
+// COMPONENTS 
 import ExerciceComponent from '../components/ExerciceComponent'
 import RoutineComponent from '../components/RoutineComponent'
+// FOCUSED
 import { useIsFocused } from '@react-navigation/native'
+// HOOKS
 import useExercises from '../hooks/useExercises'
 import useRoutines from '../hooks/useRoutines'
 
 const windowWidth = Dimensions.get('window').width
 
 const ExercicesScreen = ({ navigation }) => {
-    const [update, setUpdate] = useState(0)
-    const [switchButton, setSwitchButton] = useState(true) 
+    // HOOK EXERCISES
     const { _addExercise, _getExercises, exercises } = useExercises()
+    // HOOK ROUTINE 
     const { _addRoutine, _getRoutines, routines, _deleteRoutine, _updateRoutine } = useRoutines()
     const [count, setCount] = useState(0)
+    // FOCUSED 
     const isFocused = useIsFocused()
+    // CONST 
+    const [update, setUpdate] = useState(0)
+    const [switchButton, setSwitchButton] = useState(true) 
 
+    // GET EXERCISES AND ROUTINES 
     useEffect(() => {
         _getExercises() 
         _getRoutines()
     },[count])
 
+    // GET EXERCISES AND ROUTINES FOCUSED
     useEffect(() => {
         _getExercises() 
         _getRoutines()
     },[isFocused])
 
+    // SWITCH EXERCISES / ROUTINES 
     const _handleSwitchButton = () => {
         setSwitchButton(!switchButton)
     }
 
+    // ADD EXERCISE
     const _handleAddExercise = (title) => {
         _addExercise(title)
         setCount(count+1)
     }
 
+    // ADD ROUTINE
     const _handleAddItemRoutine = (name,exercisesList) => {
         _addRoutine(name,exercisesList)
         setCount(count+1)
     } 
 
+    // DELETE 
     const _handleDelete = (idRoutine) => {
         Alert.alert(
             // Titre
@@ -73,18 +88,22 @@ const ExercicesScreen = ({ navigation }) => {
         )
     }
     
+    // NAVIGATION EXO 
     const _handleNavigate = (idExo) => {
         navigation.navigate('ExercicesStack', { screen:'Exo', params: { idExo:idExo, exercises:exercises }})
     }
 
+    // NAVIGATION ROUTINE 
     const _handleNavRoutine = (idRoutine) => {
         navigation.navigate('ExercicesStack', { screen:'Routine', params: { idRoutine:idRoutine, routines:routines }})
     }
 
+    // UPDATE ROUTINE 
     const _handleUpdateRoutine = (id, name, exercisesList) => {
         _updateRoutine(id,name,exercisesList)
     }
 
+    // RENDER EXERCISES 
     const renderExercises = ({ item }) => (
         <TouchableOpacity style={styles.item} onPress={() => _handleNavigate(item._id)}>
             <Text>{item.title}</Text>
@@ -110,6 +129,7 @@ const ExercicesScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
+            {/* DISPLAY EXERICISES / ROUTINES */}
             {switchButton ? 
                 <View style={styles.viewCard}>
                     <RoutineComponent 
@@ -138,6 +158,7 @@ const ExercicesScreen = ({ navigation }) => {
 
 export default ExercicesScreen
 
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     container:{
         flex:1,

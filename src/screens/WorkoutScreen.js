@@ -1,29 +1,40 @@
 import React, { useEffect, useState } from 'react'
+// REACT NATIVE 
 import { View, StyleSheet, Text, TouchableOpacity, FlatList, Dimensions } from 'react-native'
+// DATE 
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
+// MODEL 
 import { MODEL_COLORS } from '../models/modelColors'
+// HOOK ROUTINES 
 import useRoutines from '../hooks/useRoutines'
 
 const { width } = Dimensions.get('window')
 
 const WorkoutScreen = ({ navigation, route }) => {
+    // CONST ROUTE PARAMS 
     const { idRoutine } = route.params 
+    // HOOK ROUTINES 
     const { _getRoutines, routines } = useRoutines()
-    const [filteredRoutines, setFilteredRoutines] = useState()
+    // DATE
     const date = new Date(Date.now())
     const formattedDate = format(date, "eeee dd MMMM yyyy", { locale: fr })
+    // CONST 
+    const [filteredRoutines, setFilteredRoutines] = useState()
 
+    // GET ROUTINES 
     useEffect(() => { 
         _getRoutines()  
     },[])
 
+    // GET ROUTINE + FILTER 
     useEffect(() => {
         const filter = routines?.filter(routine => routine._id === idRoutine)
         setFilteredRoutines(filter)
 
     },[routines])
 
+    // RENDER ROUTINES 
     const renderRoutines = ({ item }) => (
         <View>
             {item.exercises.map(e => (
@@ -35,6 +46,7 @@ const WorkoutScreen = ({ navigation, route }) => {
     )
 
 
+    // NAVIGATE 
     const _handleNavigate = (item) => {
         console.log('workout_screen nav ', item)
         navigation.navigate('Home', { screen:'WorkoutExercise', params: { title:item }})
@@ -43,18 +55,24 @@ const WorkoutScreen = ({ navigation, route }) => {
     
     return (
         <View style={styles.container}> 
+
+            {/* DATE  */}
             <Text style={styles.title}>{formattedDate}</Text>
+
+            {/* LIST ROUTINES */}
             <FlatList
                 data={filteredRoutines}
                 renderItem={renderRoutines}
                 keyExtractor={(item) => item._id}
             />
+
         </View>
     )
 }
 
 export default WorkoutScreen
 
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     container:{
         flex:1,

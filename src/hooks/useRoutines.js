@@ -3,11 +3,13 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const useRoutines = () => {
+    // CONST + LINK 
     const [routines, setRoutines] = useState()
     let linkUrl = 'https://ironrise.herokuapp.com/'
     // https://ironrise.herokuapp.com/
     // http://192.168.1.22:4000/
 
+    // ADD ROUTINE 
     const _addRoutine = async (name, exercises) => {
         const token = await AsyncStorage.getItem('@token')
         const id = await AsyncStorage.getItem('@_id')
@@ -22,6 +24,7 @@ const useRoutines = () => {
         }
     }
 
+    // GET ROUTINE 
     const _getRoutines = async () => {
         const token = await AsyncStorage.getItem('@token')
         const id = await AsyncStorage.getItem('@_id')
@@ -38,6 +41,7 @@ const useRoutines = () => {
         } 
     }
 
+    // DELETE ROUTINE 
     const _deleteRoutine = async (id) => {
         const token = await AsyncStorage.getItem('@token')
         const config = {

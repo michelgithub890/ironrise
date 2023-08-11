@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react'
+// REACT NATIVE 
 import { View, TouchableOpacity, Text, FlatList, StyleSheet, Alert } from 'react-native'
+// NAVIGATION 
 import { useNavigation } from '@react-navigation/native'
+// MODAL 
 import ModalModifExo from '../components/ModalModifExo'
 
 const RoutineScreen = (props) => {
+    // PROPS FROM NAVIGATE PARAMS 
     const { idRoutine, routines } = props.route.params
+    // CONST  
     const [filteredRoutines, setFilteredRoutines] = useState([]) 
     const [modalVisible, setModalVisible] = useState(false)
     const navigation = useNavigation()
 
+    // GET ROUTINES 
     useEffect(() => {
         console.log('page exo use effect => ', routines)
         const filtered = routines.filter(routine => routine._id === idRoutine)
         setFilteredRoutines(filtered)
     },[])
 
+    // DELETE ROUTINE 
     const _handleDelete = () => {
         Alert.alert(
             // Titre
@@ -41,6 +48,7 @@ const RoutineScreen = (props) => {
         )
     }
 
+    // UPDATE ROUTINES 
     const _handleUpdateItem = (updatedTitle) => {
         const idRoutine = filteredRoutines[0]._id
         const updatedRoutine = { title: updatedTitle }
@@ -49,7 +57,7 @@ const RoutineScreen = (props) => {
         
     }
 
-
+    // RENDER ROUTINES TITLE 
     const renderItem = ({ item }) => (
         <View style={styles.container}>
             <Text style={styles.title}>{item.title}</Text>
@@ -60,16 +68,21 @@ const RoutineScreen = (props) => {
         <View>
 
             <View style={styles.viewModifDelete}>
+
+                {/* BUTTON MODIF */}
                 <TouchableOpacity onPress={() => setModalVisible(true)}>
                     <Text>modif</Text>
                 </TouchableOpacity>
  
+                {/* BUTTON SUPP */}
                 <TouchableOpacity onPress={_handleDelete}>
                     <Text>supp</Text>
                 </TouchableOpacity>
             </View>
 
             <View>
+
+                {/* LIST ROUTINES */}
                 <FlatList
                     data={filteredRoutines}
                     renderItem={renderItem}
@@ -81,6 +94,7 @@ const RoutineScreen = (props) => {
                 <Text>Historique</Text>
             </View>
 
+            {/* MODAL  */}
             <ModalModifExo 
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
@@ -94,6 +108,7 @@ const RoutineScreen = (props) => {
 
 export default RoutineScreen
 
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     container:{
         alignSelf:'center',

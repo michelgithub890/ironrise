@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, FlatList, Alert, ScrollView } from 'react-native'
+// REACT NATIVE 
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, FlatList } from 'react-native'
+// ICONS 
 import { MaterialIcons,MaterialCommunityIcons, } from '@expo/vector-icons'
+// MODAL 
 import ModalRoutine from './ModalRoutine'
+// MODEL 
 import { MODEL_COLORS } from '../models/modelColors'
+// CHECK BOX 
 import Checkbox from 'expo-checkbox'
 
 const windowWidth = Dimensions.get('window').width
@@ -10,13 +15,12 @@ const windowWidth = Dimensions.get('window').width
 
 
 const RoutineComponent = ({ _handleAddItemRoutine, routines, exercises, _handleDelete }) => {
+    // CONST 
     const [modalVisible, setModalVisible] = useState(false)
     const [selectedItems, setSelectedItems] = useState({})
-    const [selectedRoutine, setSelectedRoutine] = useState(null)
 
-    useEffect(() => {
-    },[])
 
+    // CHANGE BOX 
     const _handleCheckboxChange = (itemId, newValue) => {
         setSelectedItems({
             ...selectedItems,
@@ -24,6 +28,7 @@ const RoutineComponent = ({ _handleAddItemRoutine, routines, exercises, _handleD
         })
     }
 
+    // RENDER EXERCISES 
     const renderExercises = ({ item }) => (
         <View style={styles.renderExercices}>
           <Checkbox 
@@ -35,6 +40,7 @@ const RoutineComponent = ({ _handleAddItemRoutine, routines, exercises, _handleD
         </View>
     )
 
+    // RENDER ITEM 
     const renderItem = ({ item }) => (
         <View style={styles.item}>
             <View style={styles.itemTitle}>
@@ -53,6 +59,7 @@ const RoutineComponent = ({ _handleAddItemRoutine, routines, exercises, _handleD
         </View>
     )  
 
+    // SAVE EXERCISE 
     const _handleSave = (name) => {
         const selectedExercices = exercises.filter((exercise) => selectedItems[exercise._id])
         _handleAddItemRoutine(name, selectedExercices.map((exercise) => exercise._id))
@@ -64,12 +71,15 @@ const RoutineComponent = ({ _handleAddItemRoutine, routines, exercises, _handleD
             <View style={styles.container}>
 
                 <View style={styles.viewAdd}>
+
+                    {/* TITLE */}
                     <Text style={styles.title}>ROUTINE</Text>
                      <TouchableOpacity onPress={() => setModalVisible(true)}>
                         <MaterialIcons name="add-circle" size={24} color={MODEL_COLORS.main} />
                      </TouchableOpacity>
                 </View>
 
+                {/* LIST ROUTINES */}
                 <View style={{ marginBottom: 300, marginTop:20 }}> 
                     <FlatList
                         data={routines}
@@ -78,6 +88,7 @@ const RoutineComponent = ({ _handleAddItemRoutine, routines, exercises, _handleD
                     />
                 </View>
 
+                {/* MODAL */}
                 <ModalRoutine 
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible} 
@@ -101,6 +112,7 @@ const RoutineComponent = ({ _handleAddItemRoutine, routines, exercises, _handleD
 
 export default RoutineComponent
 
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     viewAdd:{
         display:'flex',

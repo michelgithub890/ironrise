@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
-import { Modal, TextInput, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+// REACT NATIVE 
+import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+// REACT NATIVE PAPER 
+import { TextInput } from 'react-native-paper'
 // MODEL  
 import { MODEL_COLORS } from '../models/modelColors'
 
 const ModalExercice = ({ modalVisible, setModalVisible, _handleAddExercise }) => {
+    // CONST 
     const [inputValue, setInputValue] = useState()
  
+    // METHOD ADD EXERCISE 
     const _handleClick = () => {
         if (inputValue && inputValue.trim() !== '') {
             _handleAddExercise(inputValue)
@@ -16,11 +21,13 @@ const ModalExercice = ({ modalVisible, setModalVisible, _handleAddExercise }) =>
         }
     }
 
+    // CANCEL 
     const _handleCancel = () => {
         setModalVisible(false)
         setInputValue()
     }
 
+    // RETURN MODAL 
     return (
         <Modal
             animationType="slide"
@@ -28,9 +35,14 @@ const ModalExercice = ({ modalVisible, setModalVisible, _handleAddExercise }) =>
             visible={modalVisible}
         > 
             <View style={styles.container}> 
+
                 <View style={styles.viewBody}>
+
                     <View style={styles.contentView}>
+
                         <Text style={styles.textInput}>Ajouter un exercice</Text>
+
+                        {/* INPUT ROUTINE */}
                         <TextInput 
                             value={inputValue} 
                             onChangeText={setInputValue} 
@@ -39,22 +51,30 @@ const ModalExercice = ({ modalVisible, setModalVisible, _handleAddExercise }) =>
                         />
                     </View>
 
+                    {/* BUTTON ADD / CANCEL */}
                     <View style={styles.viewButton}>
+
                         <TouchableOpacity style={styles.buttonAdd} onPress={_handleClick}>
                             <Text style={styles.textButton}>Ajouter</Text>
                         </TouchableOpacity>
+
                         <TouchableOpacity style={styles.buttonCancel} onPress={_handleCancel}>
                             <Text style={styles.textButton}>Annuler</Text>
                         </TouchableOpacity>
+
                     </View>
+
                 </View>
+
             </View>
+
         </Modal>
     )
 }
 
 export default ModalExercice
 
+// STYLES DESIGN 
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
@@ -96,11 +116,12 @@ const styles = StyleSheet.create({
         color:"white"
     },
     input: {
-        borderWidth:1,
-        borderColor:"#A9A9A9",
-        width:220,
-        paddingLeft:10,
-        marginTop:20
+        height: 40, 
+        marginTop:20, 
+        marginStart:20, 
+        marginEnd:20 , 
+        paddingStart:10,
+        backgroundColor:MODEL_COLORS.ultraLight,
     },
     textInput: {
         marginTop:20,

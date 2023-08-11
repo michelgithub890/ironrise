@@ -3,11 +3,13 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const useExercises = () => {
+    // CONST + LINK 
     const [exercises, setExercises] = useState() 
     let linkUrl = 'https://ironrise.herokuapp.com/'
     // https://ironrise.herokuapp.com/
     // http://192.168.1.22:4000/
     
+    // ADD EXERCISE
     const _addExercise = async (title) => {
         const token = await AsyncStorage.getItem('@token')
         const id = await AsyncStorage.getItem('@_id')
@@ -23,6 +25,7 @@ const useExercises = () => {
         }
     }
 
+    // GET EXERCISE 
     const _getExercises = async () => {
         const id = await AsyncStorage.getItem('@_id')
         const token = await AsyncStorage.getItem('@token')
@@ -39,6 +42,7 @@ const useExercises = () => {
         }
     }
 
+    // UPDATE EXERCISE 
     const _updateExercise = async (id, title) => {
         const token = await AsyncStorage.getItem('@token')
         const clientId = await AsyncStorage.getItem('@_id')
@@ -54,6 +58,7 @@ const useExercises = () => {
         }
     }
 
+    // DELETE EXERCISE 
     const _deleteExercise = async (id) => { 
         const token = await AsyncStorage.getItem('@token')
         const config = {
@@ -67,6 +72,7 @@ const useExercises = () => {
         }
     }
     
+    // RETURN METHOD 
     return {
         _addExercise,
         _getExercises,

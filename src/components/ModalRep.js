@@ -1,36 +1,46 @@
 import React, { useState } from 'react'
+// REACT NATIVE 
 import { Modal, View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
+// MODEL 
 import { MODEL_COLORS } from '../models/modelColors'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
+// SIZE SCREEN 
 const { width } = Dimensions.get('window')
 
 const ModalRep = ({ modalVisible, _handleClose, _handleCancel, _getSetsNumber, title, _updateWorkout, modifModal, dataModif, _updateWorkoutExercise, workoutToday }) => { 
+    // CONST 
     const [numberRep, setNumberRep] = useState('')
     const [numberWeight, setNumberWeight] = useState('')
 
+
+    // ADD REP 
     const _handleRep = (n) => {
         setNumberRep(numberRep+n)
     }
 
+    // CLEAN REP
     const _handleRepClean = () => {
         setNumberRep('')
     }
 
+    // ADD WEIGHT 
     const _handleWeight = (n) => {
         setNumberWeight(numberWeight+n)
     }
 
+    // CLEAN WEIGHT
     const _handleWeightClean = () => {
         setNumberWeight('')
     }
 
+    // CANCEL + CLEAN ALL 
     const _handleCancelModal = () => {
         setNumberRep('')
         setNumberWeight('')
         _handleCancel()
     }
 
+    // SAVE REP AND WEIGHT => UPDATE WORKOUT 
     const _handleSave = async () => {
         if (numberRep && numberWeight) {
             const exercise = { sets:_getSetsNumber(), reps:parseInt(numberRep), weight:parseInt(numberWeight), name:title }
@@ -41,6 +51,7 @@ const ModalRep = ({ modalVisible, _handleClose, _handleCancel, _getSetsNumber, t
         }
     }
 
+    // MODIF WORKOUT 
     const _handleModif = () => {
         let exerciseUpdate = ""
         if (numberRep && numberWeight) {
@@ -76,10 +87,13 @@ const ModalRep = ({ modalVisible, _handleClose, _handleCancel, _getSetsNumber, t
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
 
+                    {/* SERIE */}
                     <Text style={styles.modalText}>Série : {modifModal ? dataModif.set : _getSetsNumber()}</Text>
 
+                    {/* REP */}
                     <Text style={styles.modalText}>Répétitions: {numberRep}</Text>
 
+                    {/* NUMBER */}
                     <View>
                         <View  style={styles.styleNumber}>
                             <TouchableOpacity>
@@ -126,6 +140,7 @@ const ModalRep = ({ modalVisible, _handleClose, _handleCancel, _getSetsNumber, t
                     
                     <Text style={{ marginTop:10 }}>Charge : {numberWeight}</Text>
 
+                    {/* WEIGHT */}
                     <View>
                         <View  style={styles.styleNumber}>
                             <TouchableOpacity>
@@ -170,6 +185,7 @@ const ModalRep = ({ modalVisible, _handleClose, _handleCancel, _getSetsNumber, t
                         </View>
                     </View>
 
+                    {/* BUTTON CANCEL / MODIF - UPDATE */}
                     <View style={styles.viewButton}>
                         <TouchableOpacity
                             style={[styles.button, styles.buttonCancel]}
@@ -193,6 +209,7 @@ const ModalRep = ({ modalVisible, _handleClose, _handleCancel, _getSetsNumber, t
 
 export default ModalRep
 
+// STYLES DESIGN  
 const styles = StyleSheet.create({
     centeredView: {
         flex: 1,
