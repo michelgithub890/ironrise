@@ -87,6 +87,11 @@ const HomeScreen = ({ navigation }) => {
                 <Text style={styles.title}>STATS</Text>
             </TouchableOpacity>
 
+            {/* TEST */}
+            <TouchableOpacity style={{ marginTop:30 }} onPress={() => navigation.navigate('Forgot')}>
+                <Text>forgot password</Text>
+            </TouchableOpacity>
+
         </View> 
     )
 }

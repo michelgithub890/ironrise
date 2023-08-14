@@ -17,6 +17,7 @@ import TestScreen from "../screens/TestScreen"
 import WorkoutScreen from "../screens/WorkoutScreen"
 import WorkoutExerciseScreen from "../screens/WorkoutExerciseScreen"
 import StatScreen from "../screens/StatScreen"
+import ForgotPasswordScreen from "../screens/forgotPassword.js/ForgotPasswordScreen"
 
 
 
@@ -33,8 +34,16 @@ function ExercicesStack() {
             component={ExercicesScreen}
             options={{ headerShown: false }}
         />
-        <Stack.Screen name="Exo" component={ExoScreen} options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  />
-        <Stack.Screen name="Routine" component={RoutineScreen} options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  />
+        <Stack.Screen 
+            name="Exo" 
+            component={ExoScreen} 
+            options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  
+        />
+        <Stack.Screen 
+            name="Routine" 
+            component={RoutineScreen} 
+            options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  
+        />
       </Stack.Navigator>
     );
 }
@@ -49,9 +58,26 @@ function HomeStack() {
                 component={HomeScreen}
                 options={{ headerShown: false }}
             />
-            <Stack.Screen name="Workout" component={WorkoutScreen} options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  />
-            <Stack.Screen name="WorkoutExercise" component={WorkoutExerciseScreen} options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  />
-            <Stack.Screen name="Stats" component={StatScreen} options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  />
+            <Stack.Screen 
+                name="Workout" 
+                component={WorkoutScreen} 
+                options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  
+            />
+            <Stack.Screen 
+                name="WorkoutExercise" 
+                component={WorkoutExerciseScreen} 
+                options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  
+            />
+            <Stack.Screen 
+                name="Stats" 
+                component={StatScreen} 
+                options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  
+            />
+            <Stack.Screen 
+                name="Forgot" 
+                component={ForgotPasswordScreen} 
+                options={{ title: 'Retour', headerStyle: { backgroundColor:MODEL_COLORS.light } }}  
+            />
         </Stack.Navigator>
     );
 }
